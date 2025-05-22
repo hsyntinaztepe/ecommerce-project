@@ -28,7 +28,7 @@ jobs:
           app_location: "/client"
           api_location: ""
           output_location: "build"
-          app_build_command: "npm run build"
+          app_build_command: "export NODE_OPTIONS=--openssl-legacy-provider && npm run build"
           api_build_command: ""
           app_artifact_location: "build"
           deployment_environment: "production"
