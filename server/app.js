@@ -59,7 +59,12 @@ mongoose
 // Middleware
 app.use(morgan("dev"));
 app.use(cookieParser());
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://nice-sand-04de3bb0f.6.azurestaticapps.net", // örnek: https://hayroo-client.azurestaticapps.net
+    credentials: true,
+  })
+);
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
