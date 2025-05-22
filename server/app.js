@@ -28,7 +28,7 @@ const cors = require("cors");
 const authRouter = require("./routes/auth");
 const categoryRouter = require("./routes/categories");
 const productRouter = require("./routes/products");
-const brainTreeRouter = require("./routes/braintree");
+// const brainTreeRouter = require("./routes/braintree"); // Temporarily disabled
 const orderRouter = require("./routes/orders");
 const usersRouter = require("./routes/users");
 const customizeRouter = require("./routes/customize");
@@ -51,7 +51,10 @@ mongoose
       "==============Mongodb Database Connected Successfully=============="
     )
   )
-  .catch((err) => console.log("Database Not Connected !!!"));
+  .catch((err) => {
+    console.log("Database Connection Error:", err);
+    console.log("Connection String:", process.env.DATABASE);
+  });
 
 // Middleware
 app.use(morgan("dev"));
@@ -62,11 +65,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Routes
+app.get('/', (req, res) => {
+  res.json({ message: 'E-commerce API is running' });
+});
+
 app.use("/api", authRouter);
 app.use("/api/user", usersRouter);
 app.use("/api/category", categoryRouter);
 app.use("/api/product", productRouter);
-app.use("/api", brainTreeRouter);
+// app.use("/api", brainTreeRouter); // Temporarily disabled
 app.use("/api/order", orderRouter);
 app.use("/api/customize", customizeRouter);
 
